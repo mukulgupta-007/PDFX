@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename); 
 
 const upload = multer({ dest: 'database/uploads/' });
-app.use('/static',express.static('public')); 
+app.use('/static',express.static('database/downloads')); 
 app.use(express.static(path.join(__dirname, 'client')));
 app.use('server', express.static(path.join(__dirname, 'server'))); 
 const port = 3000;

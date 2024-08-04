@@ -26,7 +26,7 @@ const mergePdfs = async (pdfPaths) => {
     await merger.add(path);
   }
 
-  await merger.save('public/merged.pdf'); // Save under a given name and reset the internal document
+  await merger.save('database/downloads/merged.pdf'); // Save under a given name and reset the internal document
 }
 
 // Example usage:

@@ -22,21 +22,18 @@ import PDFMerger from 'pdf-merger-js';
 
 const mergePdfs = async (pdfPaths) => {
   const merger = new PDFMerger();
-  for (const path of pdfPaths) {
-    await merger.add(path);
+  try {
+    for (const path of pdfPaths) {
+      await merger.add(path);
+    }
+    await merger.save('database/downloads/merged.pdf');
+  } catch (error) {
+    console.error('Error merging PDFs:', error);
+    throw new Error('Failed to merge PDFs');
   }
-
-  await merger.save('database/downloads/merged.pdf'); // Save under a given name and reset the internal document
-}
-
-// Example usage:
-// const pdfPaths = ['1.pdf','2.pdf']; // Replace with actual PDF file paths
-// mergePdfs(pdfPaths);
+};
 
 export { mergePdfs };
 
 
-//array and loop, multiple files
-///order of pdfs
-//sort according to the order 
 

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('fileInput');
     const uploadForm = document.getElementById('uploadForm');
     const preview = document.getElementById('preview');
+    const loadingSpinner = document.getElementById('loadingSpinner');
 
     if (dropZone) {
         dropZone.addEventListener('dragover', (e) => {
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 orderInput.name = 'order';
                 orderInput.value = Array.from(fileInput.files).map((_, index) => index + 1).join(',');
                 uploadForm.appendChild(orderInput);
+                loadingSpinner.style.display = 'block';
             }
         });
     }
@@ -43,6 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
             dataTransfer.items.add(fileInput.files[i]);
         }
         for (let i = 0; i < files.length; i++) {
+            if (files[i].type !== 'application/pdf') {
+                alert('Only PDF files are allowed.');
+                continue;
+            }
             dataTransfer.items.add(files[i]);
         }
         fileInput.files = dataTransfer.files;

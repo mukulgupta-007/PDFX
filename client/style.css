@@ -46,3 +46,8 @@
     font-size: 12px;
     color: #333;
 }
+
+.spinner-border {
+    display: block;
+    margin: 20px auto;
+}

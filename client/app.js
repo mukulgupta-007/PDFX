@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadForm = document.getElementById('uploadForm');
     const preview = document.getElementById('preview');
     const loadingSpinner = document.getElementById('loadingSpinner');
+    const previewForm = document.getElementById('previewForm');
+    const pdfPreview = document.getElementById('pdf-preview');
 
     if (dropZone) {
         dropZone.addEventListener('dragover', (e) => {
@@ -35,6 +37,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 orderInput.value = Array.from(fileInput.files).map((_, index) => index + 1).join(',');
                 uploadForm.appendChild(orderInput);
                 loadingSpinner.style.display = 'block';
+            }
+        });
+    }
+
+    if (previewForm) {
+        previewForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            console.log('Submitting form for preview...');
+            const response = await fetch('/preview', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                console.log('Preview generated successfully');
+                pdfPreview.src = '/static/preview.png';
+                pdfPreview.style.display = 'block';
+            } else {
+                console.error('Error generating preview');
+                alert('Error generating preview');
             }
         });
     }
